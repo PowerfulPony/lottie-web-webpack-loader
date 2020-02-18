@@ -1,35 +1,52 @@
 const path = require('path');
 
+const scaleLoaderPath = require.resolve('./scaleLoader.js');
+
 function lottieWebWebpackLoader(json) {
-  if (this.cacheable) {
-    this.cacheable();
-  }
+  const options = this.query;
   const done = this.async();
 
   const data = JSON.parse(json);
 
   const imageModules = [];
 
-  data.assets.forEach((item, index) => {
-    if (item.p) {
-      const imagepath = `${item.u}/${item.p}`;
-      item.u = '';
+  data.assets.forEach((asset, index) => {
+    if (asset.p) {
+      const imageAbsPath = path.join(this.context, asset.u, asset.p);
+      const imageRelPath = `.${path.sep}${path.relative(this.context, imageAbsPath)}`;
+
       imageModules.push({
-        path: imagepath,
+        path: imageRelPath,
         index,
       });
+
+      asset.u = ''; // eslint-disable-line no-param-reassign
+
+      this.resolve(imageAbsPath, '', () => {
+        this.addDependency(imageAbsPath);
+      });
     }
-  })
+  });
+
+
+  if ((options.assets && options.assets.scale) && imageModules.length) {
+    const multiplier = options.assets.scale;
+    imageModules.forEach((assets) => {
+      const imageRelPath = assets.path;
+      const loaderString = `${scaleLoaderPath}?{"scale":${multiplier}}!${imageRelPath}`;
+      assets.path = loaderString; // eslint-disable-line no-param-reassign
+    });
+  }
 
   const lottie = JSON.stringify(data, null, 2);
 
   let output = '';
   if (imageModules.length) {
-    output += `const assets = [];\n`;
+    output += 'const assets = [];\n';
   }
   imageModules.forEach((asset) => {
-    output += `assets.push([require(${JSON.stringify('./'+asset.path)}).default, ${asset.index}]);\n`;
-  })
+    output += `assets.push([require(${JSON.stringify(asset.path)}).default, ${asset.index}]);\n`;
+  });
 
   output += `const data = ${lottie}\n`;
 
@@ -42,7 +59,7 @@ assets.forEach((asset) => {
 });\n`;
   }
 
-  output += `module.exports = data;`;
+  output += 'module.exports = data;';
   done(null, output);
 }
 

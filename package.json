@@ -1,6 +1,6 @@
 {
   "name": "lottie-web-webpack-loader",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": "Victor Zakharenko <victor@pony.ninja>",
   "license": "MIT",
   "keywords": [
@@ -35,5 +35,7 @@
   "engines": {
     "node": ">=8.0.0"
   },
-  "dependencies": {}
+  "peerDependencies": {
+    "jimp": "^0.9.3"
+  }
 }
