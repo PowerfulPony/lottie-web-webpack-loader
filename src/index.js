@@ -3,7 +3,8 @@ const path = require('path');
 const scaleLoaderPath = require.resolve('./scaleLoader.js');
 
 function lottieWebWebpackLoader(json) {
-  const options = this.query;
+  const assets = getOptions(this.resourceQuery !== '' ? this.resourceQuery : this.query);
+  const options = assets !== {} ? assets : this.query;
   const done = this.async();
 
   const data = JSON.parse(json);
@@ -61,6 +62,18 @@ assets.forEach((asset) => {
 
   output += 'module.exports = data;';
   done(null, output);
+}
+
+function getOptions(stringQuery){
+  if(stringQuery === '') return {};
+  let query = JSON.parse(stringQuery.replace(/^\?/, ''));
+  if (!query.assets && query.scale) {
+    query.assets = {'scale': query.scale};
+    delete query.scale;
+  } else if (query.assets && !query.assets.scale) {
+    query.assets = {'scale': 1};
+  }
+  return query;
 }
 
 module.exports = lottieWebWebpackLoader;
