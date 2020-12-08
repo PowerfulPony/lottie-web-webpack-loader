@@ -3,7 +3,7 @@ const path = require('path');
 const scaleLoaderPath = require.resolve('./scaleLoader.js');
 
 function lottieWebWebpackLoader(json) {
-  const options = this.query;
+  const options = typeof(this.query) === 'string' && this.query !== '' ? JSON.parse(this.query.replace(/^\?/, '')) : this.query;  
   const done = this.async();
 
   const data = JSON.parse(json);
