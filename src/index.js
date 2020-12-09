@@ -14,7 +14,7 @@ function getOptions(stringQuery) {
 }
 
 function lottieWebWebpackLoader(json) {
-  const options = getOptions(this.resourceQuery !== '' ? this.resourceQuery : this.query); // eslint-disable-line no-prototype-builtins
+  const options = getOptions(this.resourceQuery !== '' ? this.resourceQuery : this.query);
   const done = this.async();
 
   const data = JSON.parse(json);
