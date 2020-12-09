@@ -43,6 +43,16 @@ const heroAnimation = lottie.loadAnimation({
 heroAnimation.goToAndPlay(0, true);
 ```
 
+**`query parameters exampl`**
+
+```javascript
+import animationData from '@/assets/lottie/hero/index.json?{"assets":{"scale":0.01}}';
+import animationData from '@/assets/lottie/hero/index.json?{"scale":0.01}';
+
+import animationData from '!lottie-web-webpack-loader?{"assets":{"scale":0.01}}!@/assets/lottie/hero/index.json?';
+import animationData from '!lottie-web-webpack-loader?{"scale":0.01}!@/assets/lottie/hero/index.json?';
+```
+
 ## Dependencies
 
 [oliver-moran/jimp](https://github.com/oliver-moran/jimp/tree/master/packages/jimp)
