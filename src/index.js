@@ -2,8 +2,19 @@ const path = require('path');
 
 const scaleLoaderPath = require.resolve('./scaleLoader.js');
 
+function getOptions(stringQuery) {
+  if (stringQuery === '' || typeof (stringQuery) !== 'string') return stringQuery;
+  const query = JSON.parse(stringQuery.replace(/^\?/, ''));
+  if (!query.assets && query.scale) {
+    query.assets = { scale: query.scale };
+  } else if (query.assets && !query.assets.scale) {
+    query.assets = { scale: 1 };
+  }
+  return query;
+}
+
 function lottieWebWebpackLoader(json) {
-  const options = this.query;
+  const options = getOptions(this.resourceQuery !== '' ? this.resourceQuery : this.query);
   const done = this.async();
 
   const data = JSON.parse(json);
