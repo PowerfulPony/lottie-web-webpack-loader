@@ -16,7 +16,7 @@
   "description": "Webpack Loader and Optimizer assets for json lottie-web files",
   "repository": {
     "type": "git",
-    "url": "git@github.com:PowerfulPony/webpack-audiosprite.git"
+    "url": "git@github.com:PowerfulPony/lottie-web-webpack-loader.git"
   },
   "bugs": {
     "url": "https://github.com/PowerfulPony/lottie-web-webpack-loader/issues"
@@ -31,11 +31,11 @@
     "lint": "eslint ./src --ext .js"
   },
   "devDependencies": {
-    "eslint": "^7.15.0",
-    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint": "^8.4.1",
+    "eslint-config-airbnb-base": "^15.0.0",
     "eslint-loader": "^3.0.3",
-    "eslint-plugin-import": "^2.22.1",
-    "eslint-plugin-sonarjs": "^0.5.0"
+    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-sonarjs": "^0.11.0"
   },
   "engines": {
     "node": ">=8.0.0"
