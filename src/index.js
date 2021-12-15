@@ -39,7 +39,6 @@ function lottieWebWebpackLoader(json) {
     }
   });
 
-
   if ((options.assets && options.assets.scale) && imageModules.length) {
     const multiplier = options.assets.scale;
     imageModules.forEach((assets) => {
