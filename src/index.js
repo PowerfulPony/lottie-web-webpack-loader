@@ -55,7 +55,7 @@ function lottieWebWebpackLoader(json) {
     output += 'const assets = [];\n';
   }
   imageModules.forEach((asset) => {
-    output += `assets.push([require(${JSON.stringify(asset.path)}).default, ${asset.index}]);\n`;
+    output += `assets.push([require(${JSON.stringify(asset.path)}).default ? require(${JSON.stringify(asset.path)}).default: require(${JSON.stringify(asset.path)}), ${asset.index}]);\n`;
   });
 
   output += `const data = ${lottie}\n`;
