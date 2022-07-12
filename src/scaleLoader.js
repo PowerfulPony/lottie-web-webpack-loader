@@ -1,4 +1,4 @@
-const Jimp = require('jimp');
+const Jimp = require('jimp-compact');
 
 function lottieWebWebpackLoaderScaleLoader(buffer) {
   const options = JSON.parse(this.query.replace(/^\?/, ''));
