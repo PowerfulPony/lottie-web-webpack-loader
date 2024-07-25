@@ -2,6 +2,10 @@ const path = require('path');
 
 const scaleLoaderPath = require.resolve('./scaleLoader.js');
 
+function toPosixPath(pathStr) {
+  return pathStr.split(path.sep).join(path.posix.sep);
+}
+
 function getOptions(stringQuery) {
   if (stringQuery === '' || typeof (stringQuery) !== 'string') return stringQuery;
   const query = JSON.parse(stringQuery.replace(/^\?/, ''));
@@ -55,7 +59,8 @@ function lottieWebWebpackLoader(json) {
     output += 'const assets = [];\n';
   }
   imageModules.forEach((asset) => {
-    output += `assets.push([require(${JSON.stringify(asset.path)}).default ? require(${JSON.stringify(asset.path)}).default: require(${JSON.stringify(asset.path)}), ${asset.index}]);\n`;
+    const posixPath = JSON.stringify(toPosixPath(asset.path));
+    output += `assets.push([require(${posixPath}).default ? require(${posixPath}).default: require(${posixPath}), ${asset.index}]);\n`;
   });
 
   output += `const data = ${lottie}\n`;
