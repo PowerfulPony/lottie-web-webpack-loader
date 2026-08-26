@@ -16,7 +16,7 @@
   "description": "Webpack Loader and Optimizer assets for json lottie-web files",
   "repository": {
     "type": "git",
-    "url": "git@github.com:PowerfulPony/lottie-web-webpack-loader.git"
+    "url": "git+https://github.com/PowerfulPony/lottie-web-webpack-loader.git"
   },
   "bugs": {
     "url": "https://github.com/PowerfulPony/lottie-web-webpack-loader/issues"
